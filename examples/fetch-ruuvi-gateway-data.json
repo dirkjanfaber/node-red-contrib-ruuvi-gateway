@@ -1,0 +1,69 @@
+[
+    {
+        "id": "276894333a56665b",
+        "type": "Ruuvi gateway",
+        "z": "985f6c11457dd04d",
+        "name": "",
+        "gateway": "bd209778320ddac5",
+        "x": 560,
+        "y": 360,
+        "wires": [
+            [
+                "91b67e458fe5c91f"
+            ]
+        ]
+    },
+    {
+        "id": "1b9c74cd503b2870",
+        "type": "inject",
+        "z": "985f6c11457dd04d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 370,
+        "y": 360,
+        "wires": [
+            [
+                "276894333a56665b"
+            ]
+        ]
+    },
+    {
+        "id": "91b67e458fe5c91f",
+        "type": "debug",
+        "z": "985f6c11457dd04d",
+        "name": "Ruuvi debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 780,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "bd209778320ddac5",
+        "type": "config-ruuvi-gateway",
+        "name": "",
+        "host": "ruuvigatewayXXXX.local",
+        "token": ""
+    }
+]

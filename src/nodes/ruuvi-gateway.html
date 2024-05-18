@@ -1,0 +1,86 @@
+<script type="text/javascript">
+
+    RED.nodes.registerType('Ruuvi gateway',{
+        category: 'network',
+        color: '#d4efeb',
+        defaults: {
+            name: {value:""},
+            gateway: {value:"", type: "config-ruuvi-gateway"},
+            store_in_global_context: {value: false},
+            verbose: {value: false}
+        },
+        icon: "ruuvi-gateway.svg",
+        inputs:1,
+        outputs:1,
+        label: function() {
+            return (this.name||"Ruuvi gateway")
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="Ruuvi gateway">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-gateway"><i class="fa fa-dot-circle-o"></i> Gateway</label>
+        <input type="text" id="node-input-gateway" placeholder="Gateway">
+    </div>
+    <div class="form-row" style="margin-bottom:0px;">
+        <input type="checkbox" id="node-input-store_in_global_context" style="display:inline-block; margin-left:8px; width:auto; vertical-align:top;">
+        <label style="min-width:390px" for="node-input-store_in_global_context"> Store the response in the global context?</label>
+    </div>
+    <div class="form-row" style="margin-bottom:0px;">
+        <input type="checkbox" id="node-input-verbose" style="display:inline-block; margin-left:8px; width:auto; vertical-align:top;">
+        <label style="min-width:390px" for="node-input-verbose"> Verbose: show the used <em>url</em> in the debug tab?</label>
+    </div>
+</script>
+
+<script type="text/markdown" data-help-name="Ruuvi gateway">
+
+Interface with the [Ruuvi gateway](https://ruuvi.com/gateway/).
+
+### Inputs
+
+: payload (string|number|json) : the trigger to poll the Ruuvi gateway
+
+### Outputs
+
+: payload (json) : the answer from the Ruuvi gateway
+
+A typical answer contains a few top level fields:
+
+- `timestamp` : the timestamp of the retrieval
+- `tags` : an object, containing all of the tags that are within reach of the gateway
+- `gw_mac` : the MAC address of the queried gateway 
+
+The `tags` contain an object for each found Ruuvi sensor, identified by its id. Typical fields that reside within this object are:
+- `rssi` : the signal strenght
+- `timestamp` : timestamp of the last received sensor reading
+- `data` : raw field containing the data of the sensor
+- `dataFormat` : identifier for the data format
+- `temperature` : the temperature in degrees Celsius
+- `humidity` : the humidity in percentage
+- `pressure` : if available, the pressure. Seems to return `null` 
+- `axelX` ,`axelY` and `axelZ` - movement information
+- `movementCounter` - how often the sensor was moved
+- `voltage` - the battery voltage
+- `txPower` - the transmit txPower
+- `measurementSequenceNumber` - a sequence number
+- `id` - the identification id for the sensor
+
+### Configuration
+
+: name (string) : the name for the node
+: gateway (ruuvi config) : the configured Ruuvi gateway
+: store in global context (boolean) : whether or not to store the answer in the global context
+: verbose (boolean) : show the used curl command in the debug tab
+
+Configure the gateway to enable [poll mode](https://docs.ruuvi.com/gw-examples/polling-mode).
+Then copy and paste the token into the configuration of a new Ruuvi gateway.
+
+Also fill out the hostname or ip address for the Ruuvi gateway. The easiest way is to
+enter `ruuvigatewayXXXX.local`, where the `XXXX` match the code, which is printed on the
+backside of the Ruuvi gateway.
+</script>

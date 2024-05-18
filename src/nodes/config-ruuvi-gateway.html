@@ -1,0 +1,33 @@
+<script type="text/javascript">
+    RED.nodes.registerType('config-ruuvi-gateway',{
+        category: 'config',
+        defaults: {
+            name: { value: "" },
+            host: { value: "", required: true },
+            token: { value: ""},
+        },
+        label: function() {
+            return ( this.name || 'Ruuvi gateway config')
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="config-ruuvi-gateway">
+    <div class="form-row">
+        <label for="node-config-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-config-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-host"><i class="fa fa-laptop"></i> Host / IP</label>
+        <input type="text" id="node-config-input-host" placeholder="Host / IP">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-token"><i class="fa fa-user-secret"></i> Token</label>
+        <input type="password" id="node-config-input-token" placeholder="password">
+    </div>
+</script>
+
+<script type="text/markdown" data-help-name="config-ruuvi-gateway">
+
+todo
+</script>
