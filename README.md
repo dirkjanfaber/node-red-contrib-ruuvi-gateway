@@ -1,6 +1,6 @@
 # Ruuvi gateway node
 
-![Example flow](./documentation/images/flow.png)
+![Example flow](documentation/images/flow.png)
 
 The node uses the [poll mode](https://docs.ruuvi.com/gw-examples/polling-mode) to retrieve
 the values from the [Ruuvi Gateway](https://ruuvi.com/gateway/) and gets triggered when receiving input.
