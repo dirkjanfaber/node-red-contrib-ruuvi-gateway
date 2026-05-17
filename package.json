@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-ruuvi-gateway",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Poll a Ruuvi gateway",
   "main": "dist/nodes/ruuvi-gateway.js",
   "files": [
