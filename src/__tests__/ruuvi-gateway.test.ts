@@ -7,7 +7,6 @@ jest.mock('axios', () => ({
   __esModule: true,
   default: { get: jest.fn() },
 }));
-jest.mock('axios-curlirize', () => jest.fn());
 
 helper.init(require.resolve('node-red'));
 
@@ -135,6 +134,40 @@ describe('ruuvi-gateway node', () => {
           }),
         })
       );
+    });
+
+    it('calls node.warn with a curl command when verbose is true', async () => {
+      await helper.load(
+        [configRuuviGatewayNode, ruuviGatewayNode],
+        BASE_FLOW({ verbose: true })
+      );
+      const n1 = helper.getNode('n1');
+      const warnSpy = jest.spyOn(n1 as unknown as { warn: () => void }, 'warn');
+
+      await new Promise<void>(resolve => {
+        helper.getNode('n2').on('input', () => resolve());
+        n1.receive({});
+      });
+
+      expect(warnSpy).toHaveBeenCalledWith(
+        expect.stringMatching(/^curl .* "http:\/\/ruuvigateway1234\.local\/history"$/)
+      );
+    });
+
+    it('does not call node.warn when verbose is false', async () => {
+      await helper.load(
+        [configRuuviGatewayNode, ruuviGatewayNode],
+        BASE_FLOW({ verbose: false })
+      );
+      const n1 = helper.getNode('n1');
+      const warnSpy = jest.spyOn(n1 as unknown as { warn: () => void }, 'warn');
+
+      await new Promise<void>(resolve => {
+        helper.getNode('n2').on('input', () => resolve());
+        n1.receive({});
+      });
+
+      expect(warnSpy).not.toHaveBeenCalled();
     });
   });
 

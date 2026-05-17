@@ -62,16 +62,10 @@ function ruuviGatewayModule(RED: NodeAPI): void {
       });
 
       if (config.verbose === true) {
-        // eslint-disable-next-line @typescript-eslint/no-require-imports
-        const curlirize = require('axios-curlirize') as (
-          axiosInstance: typeof axios,
-          callback: (result: { command: string }, err: Error | null) => void
-        ) => void;
-        curlirize(axios, (result, err) => {
-          if (!err) {
-            node.warn(result.command);
-          }
-        });
+        const headerStr = Object.entries(headers)
+          .map(([k, v]) => `-H "${k}: ${v}"`)
+          .join(' ');
+        node.warn(`curl ${headerStr} "${url}"`);
       }
     });
 
