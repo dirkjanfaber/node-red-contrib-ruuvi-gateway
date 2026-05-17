@@ -1,6 +1,8 @@
 .DS_Store
-node_modules
+node_modules/
+dist/
 scripts/csv/*.csv
 missingpaths.template.json
 
 *.swp
+*.js.map
